@@ -1,0 +1,1444 @@
+---
+title: "E-Cigarettes Not As Harmful, a perception that increased among youth from 2014 to 2018"
+author: "Angella"
+date: "February 2, 2020"
+output:
+  word_document: default
+  html_document: default
+always_allow_html: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo= FALSE, message=FALSE, warning=FALSE)
+```
+#BACKGROUND
+Electronic Nicotine Delivery Systems (e-cigarettes) are devices operated by a battery to deliver nicotine through an aerosol. These are produced in different types and are given different names such as e-hookahs, vapes, etc.1 The commonly used E-cigarettes were first invented in China in 2003 and quickly became popular as smokeless devices.    
+E-cigarettes were introduced in the United States in 2007. At this point, they were accepted by the Food and Drug Authority as therapeutic devices, and thus, became popular as aids for tobacco cessation. However, the use of e-cigarettes became popular, not only in active smokers and former smokers, but also in people who never smoked; 15% of e-cigarettes smokers in 2016 never smoked traditional cigarettes. More profoundly, they became popular among high school students aged 12 to 17 years. Seven years after their introduction in the United States, e-cigarettes became the most commonly used tobacco products among middle and high school students. From 2011 to 2017, the prevalence of e-cigarette use among high school students increased sharply to 20.8% according to  the National Youth Tobacco Survey - a  nationally representative random sample of 20,189 youth in the United States. Moreover, more than a quarter(27.7%) of these high school students had used more than 20 e-cigarettes in the past 30 days.     
+E-cigarettes can cause damage to brains that are still developing. Thye also affect memory and learning of users. These effects could be more damaging to middle and  high school students who are embarking on education activities that involve a lot of brain activity and memory use. Additionally, e-cigarettes contain nicotine, an addictive substance. More than a quarter of high school students had used more than 20 cigarettes a month in 2018. This frequent use could lead to nicotine addiction and initiation of traditional cigarettes use. In August 2019, the CDC declared an outbreak of lung injury among e-cigarettes users with 1479 cases reported as of October, 2019. This outbreak has left many people hospitalized and more than 65 dead. It is, therefore, important to analyze the trend of harm perception of e-cigarettes among youth so as understand factors that led to an escalated use of e-cigarettes among youth during the five year period preceding the lung disease epidemic. The trend of harm perception to e-cigarettes in adults from 2012 to 2015 was studied by Majeed et al(2017). This study found that over the four years, fewer adults perceived e-cigarettes as harmful. Since the prevalence of e-cigarettes usage in adults is different from the youth, it cannot be assumed that harm perception between the two groups is similar.    
+Huerta, et al(2016) reported a decreasing trend of perception of e-cigarettes as less harmful than cigarettes among youth from 2012 to 2014. This comparison between harm perception bewteen cigarettes and e-cigarettes may suggest that harm perception to cigarettes could be an important predictor of harm perception to e-cigarettes. Identifying this predictor provides more strategies on how to design health behavior messages to combat the false perception that e-cigarettes are not harmful.      
+The research objectives of this study were to evaluate the trends of; 1) harm perception to e-cigarettes among all adolescents, adolescent cigarette smokers and non-smokers from 2014 to 2018. 2)the association between harm perception to e-cigarettes and harm perception to cigarettes among adolescents, with smoking status as the moderator, from 2014 to 2018.    
+
+##METHODS    
+Data from the National Youth Tobacco Survey 2014 to 2018 was analyzed. The National Youth Tobacco Survey is an annual cross-sectional school-based survey that includes a nationally representative sample of middle school (6th to 8th grade) and high school students(9th to 12 grade). Participants in middle and high schools are selected using three-stage sampling. At all stages, probability sampling is done to select students. A paper questionnaire including questions on behaviors, attitudes and perceptions of youth, towards tobacco use in the last 30 days is circulated to participants who decide to participate voluntarily after being selected. 
+
+```{r Sample-size, echo=FALSE,results = 'hide'}
+
+Sample_size <- c(22007, 17711, 20675, 17872, 20189)
+
+year <- c(2014, 2015, 2016, 2017, 2018)
+
+Sample_year <- cbind(year, Sample_size)
+
+colnames(Sample_year) <- c("Year", "Sample Size")
+
+Sample_year
+
+#install.packages("data.table")
+
+#install.packages("dplyr")
+
+#install.packages("formattable")
+
+#install.packages("tidyr")
+
+#Load the libraries
+
+library(kableExtra)
+library(expss)
+
+Sample_year %>%
+  kable(caption = "Table 1: Sample sizes for NYTS 2014-2018") %>%
+  kable_styling(bootstrap_options = c("striped", full_width = F, position = "right"))
+
+  
+
+
+```
+
+##Data management and analysis
+Data management and analysis was done in R(version R-3.6.1) and SPSS(version 24).To access harm perception to e-cigarettes, participants were asked the question: How much do you think people harm themselves when they use e-cigarettes some days but not every day? This variable was recorded into three categories; harm (some or a lot of harm), little harm and  no harm. To assess harm perception to cigarettes, participants were asked the question: "How much do you think people harm themselves when they smoke cigarettes some days but not every day?" This variable was recorded into three categories harm(some or a lot of harm), little harm and  no harm.To assess cigarettes use, participants were asked the question: "During the past 30 days, on how many days did you smoke cigarettes?" Smoking status was recorded using this question and another question that assessed the amount of cigarettes one had smoked in a lifetime: About how many cigarettes have you smoked in your entire life? All participants who smoked 100 or more cigarettes in their lifetime and smoked a  cigarette for one day or more were recorded as smokers.Former smokers were not uniquely identified when defining smoking status because they were very few in the sample. Therefore, all participants who did not meet the smoker criteria were recorded as never smokers.        
+
+To acertain that random assignment and a large sample size led to very large enough counts in all groups of interest by outcome,frequencies across categories were examined using crosstabulations. Chi-squared tests were used to assess the relationship between harm perception for cigarettes and harm perception for e-cigarettes. On average, 4.9% of the participants had missing data on harm perception for cigarettes and 3.6% had missing data on harm perception for e-cigarettes. Missing data for these variables was imputed using K-Nearest Neighbors techinque to obtain a complete case dataset. This was done using the kNN function from the class package in R. With the K-Nearest Neighbors technique, a participant is assigned a value based on the K number of neighbors who have similar values on other variables other than the one missing. The technique works with the assumption that participants with the same characteristics exist in close proximity and a participant is likely to have the same response as the K neighbors who have the most similar characteristics to them. The dataset to be imputed included only the three variables of interest for this analysis thus limiting the dimension and noise in the dataset. This measure assists in controlling on how many participants can be found similar to the observation with missing data thus increasing accuracy.
+In SPSS, the PROCESS macro by Andrew F. Hayes was used to assess smoking status as a mediator of the relationship between harm perception to cigarettes and harm perception to e-cigarettes in all years. This macro specifies the effect size and its significance for indirect mediators. While using this macro, Sobel's test was used to assess the significance of the mediation effect of smoking status.In this mediation analysis, smoking status was recorded into three categories including former smokers as those who had smoked 100 cigarettes their lifetime but did not smoke any cigarettes in the past 30 days. A multinomial logistic regression model was estimated using the _nnet_ package in R, for each year, to assess the relationship between harm perception of cigarettes and harm perception of e-cigarettes in the presence of smoking status.These variables were recorded as described earlier; smoking status was dichotomized.Regression coefficients of the models used in this analysis are presented as odds ratios(OR). A critical p value of 0.05 and the two-tailed statistical tests were used in this analysis.
+
+
+```{r #NYTS2018, echo = FALSE, results = 'hide', message=FALSE, warning=FALSE}
+
+library(magrittr)
+
+library(readxl)
+
+library(dplyr)
+
+setwd("C:/Users/Angie/Documents/WashU/Year 2/Semester 2/Capstone/Data/NYTS")
+
+nyts2018 <- read_excel("nyts2018.xlsx")
+
+colnames(nyts2018)
+
+#Choose varibales of interest
+
+NYTS18 <- nyts2018 %>% dplyr::select("Qn1", "Qn2", "Qn3", "Q5A", "Q5B", "Q5C", "Q5D", "Q5E","Qn9" ,"Qn11", "Qn12","Qn31", "Qn65", "Qn68")
+
+colnames(NYTS18)
+
+names(NYTS18) <- c("Age","Sex", "grade","AIAN","Asian", "Black", "Native_Hawaiian", "White", "Cigs_life", "Cigs_Days30","Cigs_Smoke_days", "Ecigs_Days30", "Harm_cigs", "Harm_ecigs")
+
+summary(NYTS18)
+
+```
+
+
+
+```{r fig.show= 'hide',  results = 'hide'}
+
+#Age
+
+NYTS18$Age%>% hist(col = "skyblue", breaks = 12)
+
+mean(NYTS18$Age, na.rm = TRUE)
+
+sd(NYTS18$Age, na.rm = TRUE)
+
+#Sex
+table(NYTS18$Sex)
+
+NYTS18$Sex %>% class()
+
+NYTS18$Sex<-factor(NYTS18$Sex, 
+                      levels = c(1, 2), 
+                      labels = c("Male", "Female"))
+
+
+NYTS18$Sex <- NYTS18$Sex %>% as.factor()
+
+NYTS18$Sex %>% class()
+
+table(NYTS18$Sex)
+
+#Grade
+
+table(NYTS18$grade)
+
+NYTS18$grade %>% class()
+
+NYTS18$grade%>% as.factor()
+
+
+NYTS18 <- NYTS18 %>%
+  mutate(Grade = case_when(grade >= 4 ~ "High School",
+                           grade <= 3 ~ "Middle School" ))
+
+table(NYTS18$Grade)
+
+class(NYTS18$Grade)
+
+NYTS18$Grade <- NYTS18$Grade%>% as.factor()
+
+class(NYTS18$Grade)
+
+#Race
+
+NYTS18 <- NYTS18 %>%
+  mutate(Race = case_when(AIAN == 1 ~ "American_Indian",
+                            Asian == 1 ~ "Asian",
+                            Black == 1~ "Black",
+                            Native_Hawaiian== 1~ "Native_Hawaiian",
+                            White == 1 ~ "White"))
+
+NYTS18$Race %>% table()
+
+```
+
+
+```{r results = 'hide'}
+#Cigarettes smoked in a lifetime
+
+NYTS18$Cigs_life %>% table()
+
+
+NYTS18 <- NYTS18 %>%
+  mutate(Cigs_lifetime = case_when(Cigs_life <= 7 ~ "less than 100",
+                            Cigs_life == 8 ~ "100 or more"))
+
+NYTS18$Cigs_lifetime %>% table()
+
+# Number of days you smoked cigarettes in the last 30 days( No day = No, 1 or more days = Yes)
+
+NYTS18 <- NYTS18 %>%
+  mutate(Active_Smoke = case_when(Cigs_Days30 == 1 ~ "No",
+                            Cigs_Days30 >= 2 ~ "Yes"))
+
+NYTS18$Active_Smoke %>% table()
+
+#Cigarettes smoked per day
+
+NYTS18 <- NYTS18 %>%
+  mutate(Smoke_life = case_when(Cigs_life <= 7 ~ 0,
+                            Cigs_life == 8 ~ 1 ))
+
+
+#Smoket' 1 = smoker, 2 = Former Smoker 3 = Non smoker
+NYTS18 <- NYTS18 %>%
+  mutate(Smoket = case_when((Smoke_life == 1 & Cigs_Days30 == 1) ~ 1,
+                            (Smoke_life == 1 & Cigs_Days30 == 2) ~ 2,
+                            TRUE ~ 0))
+table(NYTS18$Smoket)
+#E-cigarettes Use
+
+NYTS18 <- NYTS18 %>%
+  mutate(Ecig_Use = case_when(Ecigs_Days30 == 1 ~ "No",
+                            Ecigs_Days30 >= 2 ~ "Yes"))
+
+NYTS18$Ecig_Use %>% table()
+
+#Harm perception to Cigarettes
+NYTS18 <- NYTS18 %>%
+  mutate(Harm_cigs1 = case_when(Harm_cigs <= 1 ~ "No_Harm",
+                                Harm_cigs <= 2 ~ "Little_Harm",
+                            Harm_cigs >= 3  ~ "Harmful"))
+
+NYTS18$Harm_cigs1 %>% table() 
+
+NYTS18$Harm_cigs1 %>% class() 
+
+NYTS18$Harm_cigs1 <- NYTS18$Harm_cigs1 %>% as.factor() 
+
+NYTS18$Harm_cigs1 %>% class() 
+
+#Harm perception to E-cigs
+NYTS18 <- NYTS18 %>%
+  mutate(Harm_ecigs1 = case_when(Harm_ecigs <= 1 ~ "No_Harm",
+                                Harm_ecigs <= 2 ~ "Little_Harm",
+                            Harm_ecigs >= 3  ~ "Harmful"))
+
+NYTS18$Harm_ecigs1 %>% table() 
+
+NYTS18$Harm_ecigs1 %>% class() 
+
+NYTS18$Harm_ecigs1 <- NYTS18$Harm_ecigs1 %>% as.factor() 
+
+NYTS18$Harm_ecigs1 %>% class() 
+
+library(janitor)
+
+NYTS18$Harm_ecigs1 %>%tabyl()
+
+#Smoking status
+NYTS18 <- NYTS18 %>%
+  mutate(Smoke_status = case_when(Cigs_lifetime == "100 or more" & 
+                            Active_Smoke == "Yes" ~ "Smoker",
+                            TRUE ~ "Non Smoker"))
+
+
+NYTS18$Smoke_status %>% table()
+
+NYTS18$Smoke_status %>% class()
+
+NYTS18$Smoke_status <- NYTS18$Smoke_status %>% as.factor()
+
+NYTS18$Smoke_status <- NYTS18$Smoke_status %>% factor(,ordered = FALSE)
+
+
+NYTS18$Smoke_status %>% table()
+
+
+```
+
+
+```{r fig.show= 'hide', results = 'hide'}
+#2018 - MISSING DATA
+
+
+Select_Vars <- c("Race", "Sex","Grade", "Age", "Ecig_Use", "Harm_cigs1", "Harm_ecigs1", "Smoke_status", "Smoket")
+
+NYTS18_i <- NYTS18[Select_Vars]
+
+library(VIM)
+
+matrixplot(NYTS18_i) #Visualize missing data
+
+library(funModeling)
+
+df_status(NYTS18_i) #look at percentage of missing data
+
+NYTS18_aggr <- aggr(NYTS18_i)
+
+select_imput <- c("Harm_cigs1", "Harm_ecigs1", "Smoke_status", "Smoket")
+
+NYTS18_select <- NYTS18_i[select_imput]
+
+df_status(NYTS18_select)
+
+library(VIM)
+
+NYTS18_imput <- VIM::kNN(NYTS18_select) #impute missing values
+
+df_status(NYTS18_imput) #confirm complete cases by looking at pna
+
+table(NYTS18_imput$Harm_cigs1)
+
+```
+
+
+
+```{r #NYTS2017, echo=FALSE, results='hide'}
+
+nyts2017 <- readxl::read_excel("nyts2017.xlsx")
+
+#Choose varibales of interest
+
+NYTS17 <- nyts2017 %>% dplyr::select("Qn1", "Qn2", "Qn3", "Q5A", "Q5B", "Q5C", "Q5D", "Q5E","Qn9" ,"Qn11", "Qn12","Qn31", "Qn65", "Qn68")
+
+NYTS17
+
+names(NYTS17) <- c("Age","Sex", "grade","AIAN","Asian", "Black", "Native_Hawaiian", "White", "Cigs_life", "Cigs_Days30","Cigs_Smoke_days", "Ecigs_Days30", "Harm_cigs", "Harm_ecigs")
+
+summary(NYTS17)
+```
+
+
+```{r fig.show= 'hide',results = 'hide'}
+
+#Age
+
+NYTS17$Age%>% hist(col = "skyblue", breaks = 12)
+
+mean(NYTS17$Age, na.rm = TRUE)
+
+sd(NYTS17$Age, na.rm = TRUE)
+
+#Sex
+table(NYTS17$Sex)
+
+NYTS17$Sex %>% class()
+
+NYTS17$Sex<-factor(NYTS17$Sex, 
+                      levels = c(1, 2), 
+                      labels = c("Male", "Female"))
+
+
+NYTS17$Sex <- NYTS17$Sex %>% as.factor()
+
+NYTS17$Sex %>% class()
+
+table(NYTS17$Sex)
+
+#Grade
+
+table(NYTS17$grade)
+
+NYTS17$grade %>% class()
+
+NYTS17$grade%>% as.factor()
+
+
+NYTS17 <- NYTS17 %>%
+  mutate(Grade = case_when(grade >= 4 ~ "High School",
+                           grade <= 3 ~ "Middle School" ))
+
+table(NYTS17$Grade)
+
+class(NYTS17$Grade)
+
+NYTS17$Grade <- NYTS17$Grade%>% as.factor()
+
+class(NYTS17$Grade)
+
+#Race
+
+NYTS17 <- NYTS17 %>%
+  mutate(Race = case_when(AIAN == 1 ~ "American_Indian",
+                            Asian == 1 ~ "Asian",
+                            Black == 1~ "Black",
+                            Native_Hawaiian== 1~ "Native_Hawaiian",
+                            White == 1 ~ "White"))
+
+NYTS17$Race %>% table()
+
+```
+
+
+```{r echo= FALSE, results= 'hide', message=FALSE}
+#Cigarettes smoked in a lifetime
+
+NYTS17$Cigs_life %>% table()
+
+
+NYTS17 <- NYTS17 %>%
+  mutate(Cigs_lifetime = case_when(Cigs_life <= 7 ~ "less than 100",
+                            Cigs_life == 8 ~ "100 or more"))
+
+NYTS17$Cigs_lifetime %>% table()
+
+# Number of days you smoked cigarettes in the last 30 days( No day = No, 1 or more days = Yes)
+
+NYTS17 <- NYTS17 %>%
+  mutate(Active_Smoke = case_when(Cigs_Days30 == 1 ~ "No",
+                            Cigs_Days30 >= 2 ~ "Yes"))
+
+NYTS17$Active_Smoke %>% table()
+
+#Cigarettes smoked per day
+
+NYTS17 <- NYTS17 %>%
+  mutate(Smoke_life = case_when(Cigs_life <= 7 ~ 0,
+                            Cigs_life == 8 ~ 1 ))
+
+
+NYTS17 <- NYTS17 %>%
+  mutate(Smoket = case_when((Smoke_life == 1 & Cigs_Days30 == 1) ~ 1,
+                            (Smoke_life == 1 & Cigs_Days30 == 2) ~ 2,
+                            TRUE ~ 0))
+table(NYTS17$Smoket)
+#E-cigarettes Use
+
+NYTS17 <- NYTS17 %>%
+  mutate(Ecig_Use = case_when(Ecigs_Days30 == 1 ~ "No",
+                            Ecigs_Days30 >= 2 ~ "Yes"))
+
+NYTS17$Ecig_Use %>% table()
+
+#Harm perception to Cigarettes
+NYTS17 <- NYTS17 %>%
+  mutate(Harm_cigs1 = case_when(Harm_cigs <= 1 ~ "No_Harm",
+                                Harm_cigs <= 2 ~ "Little_Harm",
+                            Harm_cigs >= 3  ~ "Harmful"))
+
+NYTS17$Harm_cigs1 %>% table() 
+
+NYTS17$Harm_cigs1 %>% class() 
+
+NYTS17$Harm_cigs1 <- NYTS17$Harm_cigs1 %>% as.factor() 
+
+NYTS17$Harm_cigs1 %>% class() 
+
+#Harm perception to E-cigs
+NYTS17 <- NYTS17 %>%
+  mutate(Harm_ecigs1 = case_when(Harm_ecigs <= 1 ~ "No_Harm",
+                                Harm_ecigs <= 2 ~ "Little_Harm",
+                            Harm_ecigs >= 3  ~ "Harmful"))
+
+NYTS17$Harm_ecigs1 %>% table() 
+
+NYTS17$Harm_ecigs1 %>% class() 
+
+NYTS17$Harm_ecigs1 <- NYTS17$Harm_ecigs1 %>% as.factor() 
+
+NYTS17$Harm_ecigs1 %>% class() 
+
+library(janitor)
+
+NYTS17$Harm_ecigs1 %>%tabyl()
+
+#Smoking status
+NYTS17 <- NYTS17 %>%
+  mutate(Smoke_status = case_when(Cigs_lifetime == "100 or more" & 
+                            Active_Smoke == "Yes" ~ "Smoker",
+                            TRUE ~ "Non Smoker"))
+
+
+NYTS17$Smoke_status %>% table()
+
+NYTS17$Smoke_status %>% class()
+
+NYTS17$Smoke_status <- NYTS17$Smoke_status %>% as.factor()
+
+NYTS17$Smoke_status <- NYTS17$Smoke_status %>% factor(,ordered = FALSE)
+
+
+NYTS17$Smoke_status %>% table()
+
+
+```
+
+
+
+```{r fig.show= 'hide', results = 'hide'}
+#2017 - MISSING DATA
+
+
+Select_Vars <- c("Race", "Sex","Grade", "Age", "Ecig_Use", "Harm_cigs1", "Harm_ecigs1", "Smoke_status", "Smoket")
+
+NYTS17_i <- NYTS17[Select_Vars]
+
+library(VIM)
+
+matrixplot(NYTS17_i) #Visualize missing data
+
+library(funModeling)
+
+df_status(NYTS17_i) #look at percentage of missing data
+
+NYTS17_aggr <- aggr(NYTS17_i)
+
+select_imput <- c("Harm_cigs1", "Harm_ecigs1", "Smoke_status", "Smoket")
+
+NYTS17_select <- NYTS17_i[select_imput]
+
+df_status(NYTS17_select)
+
+library(VIM)
+
+NYTS17_imput <- VIM::kNN(NYTS17_select)
+
+df_status(NYTS17_imput)
+
+table(NYTS17_i$Smoket)
+
+```
+
+
+
+
+
+```{r #NYTS2016, echo= FALSE, results = 'hide'}
+
+nyts2016 <- readxl::read_excel("nyts2016.xlsx")
+
+#Choose varibales of interest
+
+NYTS16 <- nyts2016 %>% dplyr::select("Qn1", "Qn2", "Qn3", "Q5A", "Q5B", "Q5C", "Q5D", "Q5E","Qn12" ,"Qn13", "Qn14","Qn31", "Qn61", "Qn64")
+
+NYTS16
+
+names(NYTS16) <- c("Age","Sex", "grade","AIAN","Asian", "Black", "Native_Hawaiian", "White", "Cigs_life", "Cigs_Days30","Cigs_Smoke_days", "Ecigs_Days30", "Harm_cigs", "Harm_ecigs")
+
+summary(NYTS16)
+```
+
+
+```{r fig.show= 'hide', results = 'hide'}
+#Age
+
+NYTS16$Age%>% hist(col = "skyblue", breaks = 12)
+
+mean(NYTS16$Age, na.rm = TRUE)
+
+sd(NYTS16$Age, na.rm = TRUE)
+
+#Sex
+table(NYTS16$Sex)
+
+NYTS16$Sex %>% class()
+
+NYTS16$Sex<-factor(NYTS16$Sex, 
+                      levels = c(1, 2), 
+                      labels = c("Male", "Female"))
+
+
+NYTS16$Sex <- NYTS16$Sex %>% as.factor()
+
+NYTS16$Sex %>% class()
+
+table(NYTS16$Sex)
+
+#Grade
+
+table(NYTS16$grade)
+
+NYTS16$grade %>% class()
+
+NYTS16$grade%>% as.factor()
+
+
+NYTS16 <- NYTS16 %>%
+  mutate(Grade = case_when(grade >= 4 ~ "High School",
+                           grade <= 3 ~ "Middle School" ))
+
+table(NYTS16$Grade)
+
+class(NYTS16$Grade)
+
+NYTS16$Grade <- NYTS16$Grade%>% as.factor()
+
+class(NYTS16$Grade)
+
+#Race
+
+NYTS16 <- NYTS16 %>%
+  mutate(Race = case_when(AIAN == 1 ~ "American_Indian",
+                            Asian == 1 ~ "Asian",
+                            Black == 1~ "Black",
+                            Native_Hawaiian== 1~ "Native_Hawaiian",
+                            White == 1 ~ "White"))
+
+NYTS16$Race %>% table()
+
+```
+
+
+```{r echo= FALSE, results= 'hide', message = FALSE}
+
+#Smoking variables
+
+#Cigarettes smoked in a lifetime
+
+NYTS16$Cigs_life %>% table()
+
+
+NYTS16 <- NYTS16 %>%
+  mutate(Cigs_lifetime = case_when(Cigs_life <= 7 ~ "less than 100",
+                            Cigs_life == 8 ~ "100 or more"))
+
+NYTS16$Cigs_lifetime %>% table()
+
+# Number of days you smoked cigarettes in the last 30 days( No day = No, 1 or more days = Yes)
+
+NYTS16 <- NYTS16 %>%
+  mutate(Active_Smoke = case_when(Cigs_Days30 == 1 ~ "No",
+                            Cigs_Days30 >= 2 ~ "Yes"))
+
+NYTS16$Active_Smoke %>% table()
+
+#Cigarettes smoked per day
+
+NYTS16 <- NYTS16 %>%
+  mutate(Smoke_life = case_when(Cigs_life <= 7 ~ 0,
+                            Cigs_life == 8 ~ 1 ))
+
+NYTS16 <- NYTS16 %>%
+  mutate(Smoket = case_when((Smoke_life == 1 & Cigs_Days30 == 1) ~ 1,
+                            (Smoke_life == 1 & Cigs_Days30 == 2) ~ 2,
+                            TRUE ~ 0))
+table(NYTS16$Smoket)
+#E-cigarettes Use
+
+NYTS16 <- NYTS16 %>%
+  mutate(Ecig_Use = case_when(Ecigs_Days30 == 1 ~ "No",
+                            Ecigs_Days30 >= 2 ~ "Yes"))
+
+NYTS16$Ecig_Use %>% table()
+
+#Harm perception to Cigarettes
+NYTS16 <- NYTS16 %>%
+  mutate(Harm_cigs1 = case_when(Harm_cigs <= 1 ~ "No_Harm",
+                                Harm_cigs <= 2 ~ "Little_Harm",
+                            Harm_cigs >= 3  ~ "Harmful"))
+
+NYTS16$Harm_cigs1 %>% table() 
+
+NYTS16$Harm_cigs1 %>% class() 
+
+NYTS16$Harm_cigs1 <- NYTS16$Harm_cigs1 %>% as.factor() 
+
+NYTS16$Harm_cigs1 %>% class() 
+
+#Harm perception to E-cigs
+NYTS16 <- NYTS16 %>%
+  mutate(Harm_ecigs1 = case_when(Harm_ecigs <= 1 ~ "No_Harm",
+                                Harm_ecigs <= 2 ~ "Little_Harm",
+                            Harm_ecigs >= 3  ~ "Harmful"))
+
+NYTS16$Harm_ecigs1 %>% table() 
+
+NYTS16$Harm_ecigs1 %>% class() 
+
+NYTS16$Harm_ecigs1 <- NYTS16$Harm_ecigs1 %>% as.factor() 
+
+NYTS16$Harm_ecigs1 %>% class() 
+
+library(janitor)
+
+NYTS16$Harm_ecigs1 %>%tabyl()
+
+#Smoking status
+NYTS16 <- NYTS16 %>%
+  mutate(Smoke_status = case_when(Cigs_lifetime == "100 or more" & 
+                            Active_Smoke == "Yes" ~ "Smoker",
+                            TRUE ~ "Non Smoker"))
+
+
+NYTS16$Smoke_status %>% table()
+
+NYTS16$Smoke_status %>% class()
+
+NYTS16$Smoke_status <- NYTS16$Smoke_status %>% as.factor()
+
+NYTS16$Smoke_status <- NYTS16$Smoke_status %>% factor(,ordered = FALSE)
+
+
+NYTS16$Smoke_status %>% table()
+
+```
+
+
+```{r  fig.show= 'hide', results = 'hide'}
+#2016 - MISSING DATA
+
+
+Select_Vars <- c("Race", "Sex","Grade", "Age", "Ecig_Use", "Harm_cigs1", "Harm_ecigs1", "Smoke_status", "Smoket")
+
+NYTS16_i <- NYTS16[Select_Vars]
+
+library(VIM)
+
+matrixplot(NYTS16_i) #Visualize missing data
+
+library(funModeling)
+
+df_status(NYTS16_i) #look at percentage of missing data
+
+NYTS16_aggr <- aggr(NYTS16_i)
+
+select_imput <- c("Harm_cigs1", "Harm_ecigs1", "Smoke_status", "Smoket")
+
+NYTS16_select <- NYTS16_i[select_imput]
+
+df_status(NYTS16_select)
+
+library(VIM)
+
+NYTS16_imput <- VIM::kNN(NYTS16_select)
+
+df_status(NYTS16_imput)
+
+table(NYTS16_i$Smoket)
+
+
+```
+
+
+
+```{r #NYTS2015,echo= FALSE, results='hide'}
+
+nyts2015 <- readxl::read_excel("nyts2015.xlsx")
+
+#Choose varibales of interest
+
+NYTS15 <- nyts2015 %>% dplyr::select("q1", "q2", "q3", "q5a", "q5b", "q5c", "q5d", "q5e","q11" ,"q12", "q13","q32", "q56", "q59")
+
+NYTS15
+
+names(NYTS15) <- c("Age","Sex", "grade","AIAN","Asian", "Black", "Native_Hawaiian", "White", "Cigs_life", "Cigs_Days30","Cigs_Smoke_days", "Ecigs_Days30", "Harm_cigs", "Harm_ecigs")
+
+summary(NYTS15)
+
+```
+
+
+```{r fig.show= 'hide', results = 'hide'}
+
+#Age
+
+NYTS15$Age <- NYTS15$Age %>% as.numeric()
+  
+NYTS15$Age%>% hist(col = "skyblue", breaks = 12)
+
+mean(NYTS15$Age, na.rm = TRUE)
+
+sd(NYTS15$Age, na.rm = TRUE)
+
+#Sex
+table(NYTS15$Sex)
+
+NYTS15$Sex %>% class()
+
+NYTS15$Sex<-factor(NYTS15$Sex, 
+                      levels = c(1, 2), 
+                      labels = c("Male", "Female"))
+
+
+NYTS15$Sex <- NYTS15$Sex %>% as.factor()
+
+NYTS15$Sex %>% class()
+
+NYTS15$Sex %>% table()
+
+#Grade
+
+table(NYTS15$grade)
+
+NYTS15$grade %>% class()
+
+NYTS15$grade%>% as.factor()
+
+
+NYTS15 <- NYTS15 %>%
+  mutate(Grade = case_when(grade >= 4 ~ "High School",
+                           grade <= 3 ~ "Middle School" ))
+
+table(NYTS15$Grade)
+
+class(NYTS15$Grade)
+
+NYTS15$Grade <- NYTS15$Grade%>% as.factor()
+
+class(NYTS15$Grade)
+
+#Race
+
+NYTS15 <- NYTS15 %>%
+  mutate(Race = case_when(AIAN == 1 ~ "American_Indian",
+                            Asian == 1 ~ "Asian",
+                            Black == 1~ "Black",
+                            Native_Hawaiian== 1~ "Native_Hawaiian",
+                            White == 1 ~ "White"))
+
+NYTS15$Race %>% table()
+
+```
+
+
+```{r echo= FALSE, results= 'hide', message= FALSE}
+
+#Smoking variables
+
+#Cigarettes smoked in a lifetime
+
+NYTS15$Cigs_life %>% table()
+
+
+NYTS15 <- NYTS15 %>%
+  mutate(Cigs_lifetime = case_when(Cigs_life <= 7 ~ "less than 100",
+                            Cigs_life == 8 ~ "100 or more"))
+
+NYTS15$Cigs_lifetime %>% table()
+
+# Number of days you smoked cigarettes in the last 30 days( No day = No, 1 or more days = Yes)
+
+NYTS15 <- NYTS15 %>%
+  mutate(Active_Smoke = case_when(Cigs_Days30 == 1 ~ "No",
+                            Cigs_Days30 >= 2 ~ "Yes"))
+
+NYTS15$Active_Smoke %>% table()
+
+#Cigarettes smoked per day
+
+NYTS15 <- NYTS15 %>%
+  mutate(Smoke_life = case_when(Cigs_life <= 7 ~ 0,
+                            Cigs_life == 8 ~ 1 ))
+
+
+NYTS15 <- NYTS15 %>%
+  mutate(Smoket = case_when((Smoke_life == 1 & Cigs_Days30 == 1) ~ 1,
+                            (Smoke_life == 1 & Cigs_Days30 == 2) ~ 2,
+                            TRUE ~ 0))
+table(NYTS15$Smoket)
+#E-cigarettes Use
+
+NYTS15 <- NYTS15 %>%
+  mutate(Ecig_Use = case_when(Ecigs_Days30 == 1 ~ "No",
+                            Ecigs_Days30 >= 2 ~ "Yes"))
+
+NYTS15$Ecig_Use %>% table()
+
+#Harm perception to Cigarettes
+NYTS15 <- NYTS15 %>%
+  mutate(Harm_cigs1 = case_when(Harm_cigs <= 1 ~ "No_Harm",
+                                Harm_cigs <= 2 ~ "Little_Harm",
+                            Harm_cigs >= 3  ~ "Harmful"))
+
+NYTS15$Harm_cigs1 %>% table() 
+
+NYTS15$Harm_cigs1 %>% class() 
+
+NYTS15$Harm_cigs1 <- NYTS15$Harm_cigs1 %>% as.factor() 
+
+NYTS15$Harm_cigs1 %>% class() 
+
+#Harm perception to E-cigs
+NYTS15 <- NYTS15 %>%
+  mutate(Harm_ecigs1 = case_when(Harm_ecigs <= 1 ~ "No_Harm",
+                                Harm_ecigs <= 2 ~ "Little_Harm",
+                            Harm_ecigs >= 3  ~ "Harmful"))
+
+NYTS15$Harm_ecigs1 %>% table() 
+
+NYTS15$Harm_ecigs1 %>% class() 
+
+NYTS15$Harm_ecigs1 <- NYTS15$Harm_ecigs1 %>% as.factor() 
+
+NYTS15$Harm_ecigs1 %>% class() 
+
+library(janitor)
+
+NYTS15$Harm_ecigs1 %>%tabyl()
+
+#Smoking status
+NYTS15 <- NYTS15 %>%
+  mutate(Smoke_status = case_when(Cigs_lifetime == "100 or more" & 
+                            Active_Smoke == "Yes" ~ "Smoker",
+                            TRUE ~ "Non Smoker"))
+
+
+NYTS15$Smoke_status %>% table()
+
+NYTS15$Smoke_status %>% class()
+
+NYTS15$Smoke_status <- NYTS15$Smoke_status %>% as.factor()
+
+NYTS15$Smoke_status <- NYTS15$Smoke_status %>% factor(,ordered = FALSE)
+
+
+NYTS15$Smoke_status %>% table()
+```
+
+
+```{r fig.show= 'hide',results = 'hide'}
+
+#2015 - MISSING DATA
+
+
+Select_Vars <- c("Race", "Sex","Grade", "Age", "Ecig_Use", "Harm_cigs1", "Harm_ecigs1", "Smoke_status", "Smoket")
+
+NYTS15_i <- NYTS15[Select_Vars]
+
+library(VIM)
+
+matrixplot(NYTS15_i) #Visualize missing data
+
+library(funModeling)
+
+df_status(NYTS15_i) #look at percentage of missing data
+
+NYTS15_aggr <- aggr(NYTS15_i)
+
+select_imput <- c("Harm_cigs1", "Harm_ecigs1", "Smoke_status", "Smoket")
+
+NYTS15_select <- NYTS15_i[select_imput]
+
+df_status(NYTS15_select)
+
+library(VIM)
+
+NYTS15_imput <- VIM::kNN(NYTS15_select)
+
+df_status(NYTS15_imput)
+
+table(NYTS15_i$Smoket)
+```
+
+
+
+```{r #NYTS2014, echo= FALSE, results= 'hide'}
+
+nyts2014 <- readxl::read_excel("nyts2014.xlsx")
+
+#Choose varibales of interest
+
+NYTS14 <- nyts2014 %>% dplyr::select("qn1", "qn2", "qn3", "qn5a", "qn5b", "qn5c", "qn5d", "qn5e","qn12" ,"qn13", "qn14","qn35", "qn52", "qn59")
+
+NYTS14
+
+names(NYTS14) <- c("Age","Sex", "grade","AIAN","Asian", "Black", "Native_Hawaiian", "White", "Cigs_life", "Cigs_Days30","Cigs_Smoke_days", "Ecigs_Days30", "Harm_cigs", "Harm_ecigs")
+
+summary(NYTS14)
+
+```
+
+
+```{r fig.show= 'hide', results = 'hide'}
+
+#Age
+
+NYTS14$Age <- NYTS14$Age %>% as.numeric()
+  
+NYTS14$Age%>% hist(col = "skyblue", breaks = 12)
+
+mean(NYTS14$Age, na.rm = TRUE)
+
+sd(NYTS14$Age, na.rm = TRUE)
+
+#Sex
+NYTS14$Sex %>% table()
+
+NYTS14$Sex %>% class()
+
+NYTS14$Sex<-factor(NYTS14$Sex, 
+                      levels = c(1, 2), 
+                      labels = c("Male", "Female"))
+
+
+NYTS14$Sex <- NYTS14$Sex %>% as.factor()
+
+NYTS14$Sex %>% class()
+
+NYTS14$Sex %>% table()
+
+#Grade
+
+NYTS14$grade %>%table()
+
+NYTS14$grade %>% class()
+
+NYTS14$grade%>% as.factor()
+
+
+NYTS14 <- NYTS14 %>%
+  mutate(Grade = case_when(grade >= 4 ~ "High School",
+                           grade <= 3 ~ "Middle School" ))
+
+table(NYTS14$Grade)
+
+class(NYTS14$Grade)
+
+NYTS14$Grade <- NYTS14$Grade%>% as.factor()
+
+class(NYTS14$Grade)
+
+#Race
+
+NYTS14 <- NYTS14 %>%
+  mutate(Race = case_when(AIAN == 1 ~ "American_Indian",
+                            Asian == 1 ~ "Asian",
+                            Black == 1~ "Black",
+                            Native_Hawaiian== 1~ "Native_Hawaiian",
+                            White == 1 ~ "White"))
+
+NYTS14$Race %>% table()
+
+```
+
+
+
+```{r echo= FALSE, results= 'hide', message=FALSE}
+
+
+#Smoking variables
+
+#Cigarettes smoked in a lifetime
+
+NYTS14$Cigs_life %>% table()
+
+
+NYTS14 <- NYTS14 %>%
+  mutate(Cigs_lifetime = case_when(Cigs_life <= 7 ~ "less than 100",
+                            Cigs_life == 8 ~ "100 or more"))
+
+NYTS14$Cigs_lifetime %>% table()
+
+# Number of days you smoked cigarettes in the last 30 days( No day = No, 1 or more days = Yes)
+
+NYTS14 <- NYTS14 %>%
+  mutate(Active_Smoke = case_when(Cigs_Days30 == 1 ~ "No",
+                            Cigs_Days30 >= 2 ~ "Yes"))
+
+NYTS14$Active_Smoke %>% table()
+
+#Cigarettes smoked per day
+
+NYTS14 <- NYTS14 %>%
+  mutate(Smoke_life = case_when(Cigs_life <= 7 ~ 0,
+                            Cigs_life == 8 ~ 1 ))
+
+
+NYTS14 <- NYTS14 %>%
+  mutate(Smoket = case_when((Smoke_life == 1 & Cigs_Days30 == 1) ~ 1,
+                            (Smoke_life == 1 & Cigs_Days30 == 2) ~ 2,
+                            TRUE ~ 0))
+table(NYTS14$Smoket)
+#E-cigarettes Use
+
+NYTS14 <- NYTS14 %>%
+  mutate(Ecig_Use = case_when(Ecigs_Days30 == 1 ~ "No",
+                            Ecigs_Days30 >= 2 ~ "Yes"))
+
+NYTS14$Ecig_Use %>% table()
+
+#Harm perception to Cigarettes
+NYTS14 <- NYTS14 %>%
+  mutate(Harm_cigs1 = case_when(Harm_cigs <= 1 ~ "No_Harm",
+                                Harm_cigs <= 2 ~ "Little_Harm",
+                            Harm_cigs >= 3  ~ "Harmful"))
+
+NYTS14$Harm_cigs1 %>% table() 
+
+NYTS14$Harm_cigs1 %>% class() 
+
+NYTS14$Harm_cigs1 <- NYTS14$Harm_cigs1 %>% as.factor() 
+
+NYTS14$Harm_cigs1 %>% class() 
+
+#Harm perception to E-cigs
+NYTS14 <- NYTS14 %>%
+  mutate(Harm_ecigs1 = case_when(Harm_ecigs <= 1 ~ "No_Harm",
+                                Harm_ecigs <= 2 ~ "Little_Harm",
+                            Harm_ecigs >= 3  ~ "Harmful"))
+
+NYTS14$Harm_ecigs1 %>% table() 
+
+NYTS14$Harm_ecigs1 %>% class() 
+
+NYTS14$Harm_ecigs1 <- NYTS14$Harm_ecigs1 %>% as.factor() 
+
+NYTS14$Harm_ecigs1 %>% class() 
+
+library(janitor)
+
+NYTS14$Harm_ecigs1 %>%tabyl()
+
+#Smoking status
+NYTS14 <- NYTS14 %>%
+  mutate(Smoke_status = case_when(Cigs_lifetime == "100 or more" & 
+                            Active_Smoke == "Yes" ~ "Smoker",
+                            TRUE ~ "Non Smoker"))
+
+
+NYTS14$Smoke_status %>% table()
+
+NYTS14$Smoke_status %>% class()
+
+NYTS14$Smoke_status <- NYTS14$Smoke_status %>% as.factor()
+
+NYTS14$Smoke_status <- NYTS14$Smoke_status %>% factor(,ordered = FALSE)
+
+
+NYTS14$Smoke_status %>% table()
+
+```
+
+
+```{r fig.show= 'hide', results = 'hide'}
+
+#2014 - MISSING DATA
+
+
+Select_Vars <- c("Race", "Sex","Grade", "Age", "Ecig_Use", "Harm_cigs1", "Harm_ecigs1", "Smoke_status", "Smoket")
+
+NYTS14_i <- NYTS14[Select_Vars]
+
+library(VIM)
+
+matrixplot(NYTS14_i) #Visualize missing data
+
+library(funModeling)
+
+df_status(NYTS14_i) #look at percentage of missing data
+
+NYTS14_aggr <- aggr(NYTS14_i)
+
+select_imput <- c("Harm_cigs1", "Harm_ecigs1", "Smoke_status", "Smoket")
+
+NYTS14_select <- NYTS14_i[select_imput]
+
+df_status(NYTS14_select)
+
+library(VIM)
+
+NYTS14_imput <- VIM::kNN(NYTS14_select)
+
+df_status(NYTS14_imput)
+
+table(NYTS14_i$Smoket)
+```
+
+
+```{r results = 'hide'}
+#Average missing values
+
+Harm_cigs_msg <- c(8.17, 7.33, 3.22, 2.97, 2.84)
+
+mean(Harm_cigs_msg)
+
+Harm_ecigs_msg <- c(3.94, 3.69, 3.70, 3.14, 3.34)
+
+mean(Harm_ecigs_msg)
+
+```
+
+
+
+#RESULTS    
+
+The median sample size in all the 5 surveys (2014-2018) was 20189 (17711-22007). Table1 has the demographic characteristics of middle and high school students who participated in the most recent survey of this analysis, 2018. 
+```{r results = 'hide'}
+
+Sample_size <- c(22007, 17711, 20675, 17872, 20189)
+
+median(Sample_size)
+
+mean(Sample_size)
+
+```
+
+In all the five years,the percentage of participants who  perceived e-cigarettes as harmless was higher among smokers(30.1%, 26.9%-41.8%)  than in non-smokers (10%, 9.2%-16.6%).  The percentage of all adolescents who perceived e-cigarettes as harmless decreased gradually from 2014 to 2015(from 17.2% to 14.9%). It decreased steeply from 2015 to 2016(From 14.9% to 10.4%). This percentage barely changed between 2016 and 2018(See _Figure 1_ for trend in smokers and non-smokers). The highest proportion of youth who did not perceive e-cigarettes as harmful was recorded in 2014 in all groups.The percentage of smokers who perceived e-cigarettes to have little harm steeply increased between 2015 and 2018 by 7.6% (See _Figure 1_ ).        
+
+The percentage of adolescents who perceived both cigarettes and e-cigarettes as harmeless was 2.6%(568) in 2014 and 3%(596) in 2018 (3%, 2.6-3.9). On using a Chisquared test, the relationship between harm perception for cigarettes and harm perception for e-cigarettes was statistically significant in all years with the largest Chisquared being in 2018( $\chi^2$ (1, 18371) = 2038.5, p<0.01) and the smallest in 2014(2014: $\chi^2$ (1,21042)  = 1309.7, p<0.01). In all years, smoking status had a statistically significant indirect mediation effect on the relationship between harm perception for cigarettes and harm perception for e-cigarettes apart from the year 2017(Effect size = 0.0003, Boostrap 95% CI: -0.0004 - 0.0012). The largest indirect effect of smoking status on this relationship was in 2014(Effect size = 0.0011, Boostrap 95% CI: 0.0001 - 0.0023). 
+
+
+In 2014,the odds of perceiving e-cigarettes as harmless relative to harmful were significantly 18.097 times greater for youth who perceived cigarettes as harmless versus those who perceived cigarettes as harmful(OR = 18.097; 95% CI:14.90-21.98). These odds increased to 64.52 times in 2018(OR = 64.52; 95% CI:51.84 - 80.31). After controlling for smoking status, the odds of perceiving e-cigarettes as a  little harmful relative to harmful among youth who perceived cigarettes as a little harmful versus those who perceived them as harmful was significant in all years and increased from 2014 to 2018(See Table 2).  
+
+```{r results = 'hide'}
+library(gmodels)
+
+CrossTable(NYTS18_imput$Harm_cigs1,NYTS18_imput$Harm_ecigs1, chisq = TRUE)
+
+CrossTable(NYTS17_imput$Harm_cigs1,NYTS17_imput$Harm_ecigs1, chisq = TRUE)
+
+CrossTable(NYTS16_imput$Harm_cigs1,NYTS16_imput$Harm_ecigs1, chisq = TRUE)
+
+CrossTable(NYTS15_imput$Harm_cigs1,NYTS15_imput$Harm_ecigs1, chisq = TRUE)
+
+CrossTable(NYTS14_imput$Harm_cigs1,NYTS14_imput$Harm_ecigs1, chisq = TRUE)
+
+harmless <- c(0.030,0.029,0.030,0.039,0.026)
+
+median(harmless)
+
+range(harmless)
+
+```
+
+
+```{r  results = 'hide'}
+#2018
+#Harm perception to E-cigs
+library(magrittr)
+library(dplyr)
+ 
+NYTS18_i <- NYTS18_imput
+
+
+NYTS18_i <- NYTS18_i %>% dplyr::select("Harm_cigs1", "Harm_ecigs1", "Smoket")
+
+table(NYTS18_i$Smoket)
+
+library(haven)	
+
+#write_sav(NYTS18_i, "NYTS2018.sav")	
+
+```
+
+
+```{r results = 'hide'}
+#2017
+#Harm perception to E-cigs
+NYTS17_i <- NYTS17_imput
+
+
+NYTS17_i <- NYTS17_i %>% dplyr::select("Harm_cigs1", "Harm_ecigs1", "Smoket")
+
+table(NYTS17_i$Smoket)
+
+#write_sav(NYTS17_i, "NYTS2017.sav")	
+```
+
+```{r  results = 'hide'}
+
+#2016
+#Harm perception to E-cigs
+NYTS16_i <- NYTS16_imput
+
+
+NYTS16_i <- NYTS16_i %>% dplyr::select("Harm_cigs1", "Harm_ecigs1", "Smoket")
+
+table(NYTS16_i$Smoket)
+
+#write_sav(NYTS16_i, "NYTS2016.sav")
+
+```
+
+```{r  results = 'hide'}
+
+#2015
+#Harm perception to E-cigs
+NYTS15_i <- NYTS15_imput
+
+
+NYTS15_i <- NYTS15_i %>% dplyr::select("Harm_cigs1", "Harm_ecigs1", "Smoket")
+
+table(NYTS15_i$Smoket)
+
+
+#write_sav(NYTS15_i, "NYTS2015.sav")
+
+```
+
+```{r  results = 'hide'}
+#2014
+#Harm perception to E-cigs
+NYTS14_i <- NYTS14_imput
+
+
+NYTS14_i <- NYTS14_i %>% dplyr::select("Harm_cigs1", "Harm_ecigs1", "Smoket")
+
+table(NYTS14_i$Smoket)
+
+#write_sav(NYTS14_i, "NYTS2014.sav")
+
+```
+
+
+#DISCUSSION    
+
+Over the past five years, the proportion of youth who perceived e-cigarettes as harmless generally decreased. This is similar to the trend of harm perception for e-cigarettes in adults that was reported by Majeed et al(2017) in the entire sample and also in smokers and non-smokers. The lowest point in this trend was in 2017, the same year that the use e-cigarettes reached its peak(ref). This is controversial as one would expect the percentage of youth who perceived e-cigarettes as harmless to be high in 2017. However, the trend of the proportion of youth who perceived e-cigarettes as a little harmful could probably explain this controversy.This proportion increased exponentially from 2014 to 2018. This group of youth could be a valid explanation for the rise in the use of e-cigarettes among youth in the United States. As already statistically proven in  most studies discussed by Czoli, et al.(2016) meta analysis, this study found that harm perception for cigarettes was a statistically significant related to harm perception for e-cigarettes. From Czoli, et al's analysis,respondents in many observational studies perceived e-cigarettes as less harmful than cigarettes. In this study, the smoking status of an individual was found to be a statistically significant mediator of this relationship.The indirect effect of smoking status was significant implying that the smoking status of individual partially explained the relationship between harm perception for cigarettes and harm perception for e-cigarettes. Nonetheless, the effect size was so small. It could be that other mediators of this relationship, with bigger effect sizes, are unknown or that the actual direct pathway from harm perception for cigarettes to harm perception for e-cigarettes explains the relationship.
+
+From 2014 to 2018, the odds of perceiving e-cigarettes as harmless versus harmful among youth who perceived cigarettes as harmless as opposed to those who perceived them as harmful increased approximatley four times. This indicates that if an adolescent did not think cigarettes were harmful they were more than 60 times more likely to perceive e-cigarettes as harmless compared to other youth who perceived cigarettes as harmful.Given that these odds are really high, perception of cigarettes as harmless could greatly influence the use of e-cigarettes. Even though e-cigarettes are more frequently used among youth, as highlighted by ..., efforts towards educating youth about the danger of traditional cigarettes can contribute to the mitigation of e-cigarette use among youth.    
+From 2014 to 2018, the odds of perceiving e-cigarettes as a little harmful versus harmful among youth who perceived cigarettes as harmless as opposed to those who perceived them as harmful approximatley doubled.  This could be an indicator that the driver for increased e-cigarettes use may not only be perceiving e-cigarettes as harmful but also just a little harmful. More studies are needed to understand patterns and frequency of use of e-cigarettes among youth who perceive e-cigarettes as a little harmful especially among smokers since the trend of perceiving e-cigarettes as a little harmful only exponentially increased among smokers between 2014 and 2018.    
+The results from this study could be a good reference point for health behavior and advocacy strategies to mitigate e-cigarettes use among youth. This study was done with large sample sizes that are representative of the national population of youth in the United States. The limitation of this study was that the number of smokers in some categories were few. This could be the reason why the indirect effect sizes of smoking status as a mediator were really small. There's need to repeat the study with larger sample sizes that include more smokers. With better representation of smokers in the sample, more informative trends of harm perception for e-cigarettes in this group could be found.
+
+#TABLES    
+
+
+```{r results = 'hide'}
+
+library(tableone)
+
+table1_vars <- c("Age","Sex","Grade","Race","Harm_cigs1","Harm_ecigs1", "Smoke_status")
+
+NY18 = NYTS18[table1_vars]
+
+colnames(NY18)  <-c("Age","Sex", "Grade", "Race", "Harm perception to cigaretes",
+                         "Harm perception to e-cigaretes", "Smoking Status")
+  
+  
+  
+myVars = c("Age","Sex","Grade","Race","Harm perception to cigaretes",
+                         "Harm perception to e-cigaretes","Smoking Status")
+
+CatVars = c("Sex","Grade","Race","Harm perception to cigaretes",
+                         "Harm perception to e-cigaretes","Smoking Status")
+
+#Consider recording grade into middle and high school
+tableone18 <- CreateTableOne(vars = myVars, data = NY18, factorVars = CatVars)
+
+T18_print <- print(tableone18, showAllLevels = TRUE)
+
+
+```
+
+
+```{r results = 'asis'}
+library(kableExtra) #For table formatting
+
+#install.packages("magick")
+#install.packages("webshot")
+#webshot::install_phantomjs()
+
+T18_print %>%
+  kable(caption = "<b>Table 1: Demographic and tobacco-related characteristics of high school and middle school students in the NYTS-2018 sample</b>",
+        col.names = c("Categories", "n(%)")) %>%
+  kable_styling(bootstrap_options = c("striped", full_width = F, position = "right"))  %>%
+  column_spec(1, bold = TRUE, color = "black", width = "3.5in") %>%
+  column_spec(c(2,3), color = "black", width = "2.5in") %>%
+  as_image(file = "test.html",width = 8)
+
+webshot::webshot("test.html")
+
+```
+
+#FIGURES    
+
+
+```{r results = 'hide'}
+
+library(gmodels)
+
+#Harm perception to ecigs in 2018
+
+CrossTable(NYTS18$Smoke_status,NYTS18$Harm_ecigs1)
+
+CrossTable(NYTS17$Smoke_status,NYTS17$Harm_ecigs1)
+
+CrossTable(NYTS16$Smoke_status,NYTS16$Harm_ecigs1)
+
+CrossTable(NYTS15$Smoke_status,NYTS15$Harm_ecigs1)
+
+CrossTable(NYTS14$Smoke_status,NYTS14$Harm_ecigs1)
+
+year_cat <- c(2014,2015,2016,2017,2018)
+
+no_harm1 <- c(0.418, 0.362, 0.301, 0.275, 0.269) #% no harm for each year(2014-2018) - smokers
+
+median(no_harm1)
+range(no_harm1)
+
+no_harm2 <- c(0.166, 0.144, 0.100, 0.092, 0.097) #% no harm for each year(2014-2018 - Non-Smokers)
+
+no_harm <- c(0.172, 0.149, 0.104, 0.095, 0.1) #% no harm for each year(2014-2018) - All adolesecents
+
+median(no_harm1)
+
+range(no_harm1)
+
+median(no_harm2)
+
+range(no_harm2)
+
+
+```
+
+
+
+```{r fig.show= 'hide', results = 'hide'}
+
+year_harm1 <- cbind(year_cat, no_harm, no_harm1, no_harm2) %>%
+  as.data.frame()
+
+colnames(year_harm1) <- c("Year", "All_Adolescents", "Smokers", "Non_Smokers")
+
+year_harm1
+#Plotting trends for all adolescents and for smokers alone
+
+library(ggplot2)
+
+g_harmless <- ggplot(year_harm1, aes(x = year_cat)) +
+  geom_line(aes(y= All_Adolescents*100,colour = "All_Adolescents"), lwd = 1) +
+  geom_line(aes(y=Smokers*100, colour = "Smokers"), lwd = 1) +
+  geom_line(aes(y=Non_Smokers*100, colour = "Non_Smokers"),linetype = "dashed", lwd = 1) +
+  labs(x = "Year", y = "Percentage of youth who perceived\ne-cigarettes as harmless") +
+  theme(plot.title = element_text(hjust = 0.5, face = "bold")) +
+  scale_colour_manual(name="Categories",
+    values=c(All_Adolescents="dark green", Smokers="orange", Non_Smokers="black"))
+
+g_harmless
+
+
+
+
+```
+
+
+
+```{r fig.show= 'hide',results = 'hide'}
+
+little_harm1 <- c(0.392, 0.336, 0.384, 0.389, 0.412) #% no harm for each year(2014-2018) - smokers
+
+little_harm2 <- c(0.315, 0.310, 0.274, 0.258, 0.267) #% no harm for each year(2014-2018 - Non-Smokers)
+
+little_harm <- c(0.317, 0.311, 0.276, 0.261, 0.269) #% no harm for each year(2014-2018) - All adolesecents
+
+year_harm4 <- cbind(year_cat, little_harm, little_harm1, little_harm2) %>%
+  as.data.frame()
+
+colnames(year_harm4) <- c("Year", "All_Adolescents", "Smokers", "Non_Smokers")
+
+year_harm4
+#Plotting trends for all adolescents and for smokers alone
+
+g_little_harm  <- ggplot(year_harm4, aes(x = year_cat)) +
+  geom_line(aes(y= All_Adolescents*100,colour = "All_Adolescents"), lwd = 1) +
+  geom_line(aes(y=Smokers*100, colour = "Smokers"), lwd = 1) +
+  geom_line(aes(y=Non_Smokers*100, colour = "Non_Smokers"),linetype = "dashed", lwd = 1) +
+  labs(x = "Year", y = "Percentage of youth that perceived\ne-cigarettes as of little harm") +
+  theme(plot.title = element_text(hjust = 0.5, face = "bold")) +
+  scale_colour_manual(name="Categories",
+    values=c(All_Adolescents="dark green", Smokers="orange", Non_Smokers="black"))
+
+g_little_harm 
+
+
+
+
+```
+
+
+
+```{r results='asis'}
+
+library(gridExtra)
+library(grid)
+
+title1=textGrob("Figure 1:The trend of harm perception of e-ciagrettes among youth\nin the United States, 2014-2018", gp=gpar(fontface="bold", fontsize = 14))
+
+#png(file="perception.png",width=700, height= 700)
+grid.arrange(g_harmless + ggtitle("Perception of e-cigarettes as harmless"),
+             g_little_harm + ggtitle("Perception of e-cigarettes as of little harm"),
+             nrow = 2,
+             top = title1)
+
+
+```
+
+
